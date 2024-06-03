@@ -112,7 +112,7 @@ private:
     bool checkTimestamp(CP56Time2a timestamp);
     bool checkIfCmdTimeIsValid(int typeId, InformationObject io);
     void addToOutstandingCommands(CS101_ASDU asdu, IMasterConnection connection, bool isSelect);
-    bool forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject command, IMasterConnection connection);
+    bool forwardCommand(CS101_ASDU asdu, InformationObject command, IMasterConnection connection);
     void removeOutstandingCommands(IMasterConnection connection);
     void removeAllOutstandingCommands();
     void handleActCon(int type, int ca, int ioa, bool isNegative);
