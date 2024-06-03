@@ -915,13 +915,11 @@ enum CommandParameters{
 };
 
 bool
-IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject command, IMasterConnection connection)
+IEC104Server::forwardCommand(CS101_ASDU asdu, InformationObject command, IMasterConnection connection)
 {
     std::string beforeLog = Iec104Utility::PluginName + " - IEC104Server::forwardCommand -";
     int res = -1;
     IEC60870_5_TypeID typeId = CS101_ASDU_getTypeID(asdu);
-
-    IEC104Server* self = (IEC104Server*)parameter;
 
     int parameterCount = 9;
 
@@ -986,7 +984,7 @@ IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject
 
         case C_SC_TA_1:
             {
-                if (self->m_config->CmdRemoveTS()) {
+                if (m_config->CmdRemoveTS()) {
                     parameters[TYPE] = (char*)"C_SC_NA_1";
 
                     SingleCommand sc = (SingleCommand)command;
@@ -1044,7 +1042,7 @@ IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject
 
         case C_DC_TA_1:
             {
-                if (self->m_config->CmdRemoveTS()) {
+                if (m_config->CmdRemoveTS()) {
                 parameters[TYPE] = (char*)"C_DC_NA_1";
                 
                     DoubleCommand dc = (DoubleCommand)command;
@@ -1102,7 +1100,7 @@ IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject
 
             case C_RC_TA_1:
             {
-                if (self->m_config->CmdRemoveTS()) {
+                if (m_config->CmdRemoveTS()) {
                     parameters[TYPE] = (char*)"C_RC_NA_1";
                     
                     StepCommand rc = (StepCommand)command;
@@ -1159,7 +1157,7 @@ IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject
 
         case C_SE_TA_1:
             {
-                if (self->m_config->CmdRemoveTS()) {
+                if (m_config->CmdRemoveTS()) {
                     parameters[TYPE] = (char*)"C_SE_NA_1";
                     
                     SetpointCommandNormalized spn = (SetpointCommandNormalized)command;
@@ -1214,7 +1212,7 @@ IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject
 
         case C_SE_TB_1:
             {
-                if (self->m_config->CmdRemoveTS()) {
+                if (m_config->CmdRemoveTS()) {
                     parameters[TYPE] = (char*)"C_SE_NB_1";
                     
                     SetpointCommandScaled sps = (SetpointCommandScaled)command;
@@ -1268,7 +1266,7 @@ IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject
 
         case C_SE_TC_1:
             {
-                if (self->m_config->CmdRemoveTS()) {
+                if (m_config->CmdRemoveTS()) {
                     parameters[TYPE] = (char*)"C_SE_NC_1";
                     
                     SetpointCommandShort spf = (SetpointCommandShort)command;
@@ -2071,7 +2069,7 @@ IEC104Server::asduHandler(void* parameter, IMasterConnection connection,
                                 if (acceptCommand) {
                                     CS101_ASDU_setCOT(asdu, CS101_COT_ACTIVATION_CON);
 
-                                    if (!self->forwardCommand(m_slave, asdu, io, connection)) {
+                                    if (!self->forwardCommand(asdu, io, connection)) {
                                         CS101_ASDU_setNegative(asdu, true);
                                         Iec104Utility::log_warn(
                                             "%s command (%s) for %i:%i - Failed to forward command, set negative response",
