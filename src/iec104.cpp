@@ -2071,7 +2071,7 @@ IEC104Server::asduHandler(void* parameter, IMasterConnection connection,
                                 if (acceptCommand) {
                                     CS101_ASDU_setCOT(asdu, CS101_COT_ACTIVATION_CON);
 
-                                    if (!self->forwardCommand(asdu, io, connection)) {
+                                    if (!self->forwardCommand(m_slave, asdu, io, connection)) {
                                         CS101_ASDU_setNegative(asdu, true);
                                         Iec104Utility::log_warn(
                                             "%s command (%s) for %i:%i - Failed to forward command, set negative response",
