@@ -921,6 +921,8 @@ IEC104Server::forwardCommand(CS101_ASDU asdu, InformationObject command, IMaster
     int res = -1;
     IEC60870_5_TypeID typeId = CS101_ASDU_getTypeID(asdu);
 
+    IEC104Server* self = (IEC104Server*)parameter;
+
     int parameterCount = 9;
 
     std::string typeStr = IEC104DataPoint::getStringFromTypeID(typeId);
