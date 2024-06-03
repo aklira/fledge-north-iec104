@@ -915,7 +915,7 @@ enum CommandParameters{
 };
 
 bool
-IEC104Server::forwardCommand(CS101_ASDU asdu, InformationObject command, IMasterConnection connection)
+IEC104Server::forwardCommand(void* parameter, CS101_ASDU asdu, InformationObject command, IMasterConnection connection)
 {
     std::string beforeLog = Iec104Utility::PluginName + " - IEC104Server::forwardCommand -";
     int res = -1;
