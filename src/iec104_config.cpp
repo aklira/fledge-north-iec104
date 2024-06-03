@@ -528,6 +528,7 @@ IEC104Config::importProtocolConfig(const std::string& protocolConfig)
     }
 
     if (applicationLayer.HasMember("cmd_remove_ts")) {
+        Iec104Utility::log_info("%s application_layer.cmd_remove_ts has been found (%s)", beforeLog.c_str());
         if (applicationLayer["cmd_remove_ts"].IsBool()) {
             m_cmdRemoveTS = applicationLayer["cmd_remove_ts"].GetBool();
         }
