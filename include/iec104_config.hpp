@@ -50,6 +50,8 @@ public:
     int CmdRecvTimeout() {return m_cmdRecvTimeout;};
     int CmdExecTimeout() {return m_cmdExecTimeout;};
 
+    bool CmdRemoveTS() {return m_cmdRemoveTS;};
+
     std::string& CmdDest() {return m_cmdDest;};
 
     std::string& GetPrivateKey() {return m_privateKey;};
@@ -137,6 +139,8 @@ private:
 
     int m_cmdRecvTimeout = 0;
     int m_cmdExecTimeout = 20;
+
+    bool m_cmdRemoveTS = false; /* if true = convert cmd asdu with ts to asdus with no ts */
 
     std::string m_ip;
 

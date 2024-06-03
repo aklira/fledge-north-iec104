@@ -527,6 +527,16 @@ IEC104Config::importProtocolConfig(const std::string& protocolConfig)
         }
     }
 
+    if (applicationLayer.HasMember("cmd_remove_ts")) {
+        if (applicationLayer["cmd_remove_ts"].IsBool()) {
+            m_cmdRemoveTS = applicationLayer["cmd_remove_ts"].GetBool();
+        }
+        else {
+            Iec104Utility::log_warn("%s application_layer.cmd_remove_ts is not a bool -> using default value (%s)", beforeLog.c_str(),
+                                    (m_cmdRemoveTS?"true":"false"));
+        }
+    }
+
     if (applicationLayer.HasMember("cmd_exec_timeout")) {
         if (applicationLayer["cmd_exec_timeout"].IsInt()) {
             int cmdExecTimeout = applicationLayer["cmd_exec_timeout"].GetInt();
