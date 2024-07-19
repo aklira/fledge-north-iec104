@@ -1,6 +1,7 @@
 #include <map>
 
 #include "iec104_datapoint.hpp"
+#include "iec104_utility.hpp"
 
 // Map of all existing ASDU types
 static std::map<std::string, int> mapAsduTypeId = {
@@ -319,45 +320,62 @@ IEC104DataPoint::isMessageTypeMatching(int expectedType)
 
 bool IEC104DataPoint::isMatchingCommand(int typeId)
 {
+    Iec104Utility::log_info("isMatchingCommand m_type = %d", m_type);
+    Iec104Utility::log_info("isMatchingCommand typeId = %d", typeId);
+
     if (isCommand()) {
+        Iec104Utility::log_info("isMatchingCommand isCommand is true");
         if (m_type == IEC60870_TYPE_SP) {
             if (typeId == C_SC_NA_1 || typeId == C_SC_TA_1)
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SC_NA_1 || typeId == C_SC_TA_1 is true");
                 return true;
             else
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SC_NA_1 || typeId == C_SC_TA_1 is false");
                 return false;
         }
         else if (m_type == IEC60870_TYPE_DP) {
             if (typeId == C_DC_NA_1 || typeId == C_DC_TA_1)
+                Iec104Utility::log_info("isMatchingCommand typeId == C_DC_NA_1 || typeId == C_DC_TA_1 is true");
                 return true;
             else
+                Iec104Utility::log_info("isMatchingCommand typeId == C_DC_NA_1 || typeId == C_DC_TA_1 is false");
                 return false;
         }
         else if (m_type == IEC60870_TYPE_STEP_POS) {
             if (typeId == C_RC_NA_1 || typeId == C_RC_TA_1)
+                Iec104Utility::log_info("isMatchingCommand typeId == C_RC_NA_1 || typeId == C_RC_TA_1 is true");
                 return true;
             else
+                Iec104Utility::log_info("isMatchingCommand typeId == C_RC_NA_1 || typeId == C_RC_TA_1 is false");
                 return false;
         }
         else if (m_type == IEC60870_TYPE_NORMALIZED) {
             if (typeId == C_SE_NA_1 || typeId == C_SE_TA_1)
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SE_NA_1 || typeId == C_SE_TA_1 is true");
                 return true;
             else
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SE_NA_1 || typeId == C_SE_TA_1 is false");
                 return false;
         }
         else if (m_type == IEC60870_TYPE_SCALED) {
             if (typeId == C_SE_NB_1 || typeId == C_SE_TB_1)
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SE_NB_1 || typeId == C_SE_TB_1 is true");
                 return true;
             else
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SE_NB_1 || typeId == C_SE_TB_1 is false");
                 return false;
         }
         else if (m_type == IEC60870_TYPE_SHORT) {
             if (typeId == C_SE_NC_1 || typeId == C_SE_TC_1)
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SE_NC_1 || typeId == C_SE_TC_1 is true");
                 return true;
             else
+                Iec104Utility::log_info("isMatchingCommand typeId == C_SE_NC_1 || typeId == C_SE_TC_1 is false");
                 return false;
         }
     }
     
+    Iec104Utility::log_info("isMatchingCommand isCommand is false");
     return false;
 }
 
